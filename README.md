@@ -2,10 +2,10 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.1.   
 Using MSAL@azure/msal-angular V 3.0.2 to:    
-- authenticate users on Azure AD   
+- authenticate users on Azure AD from Angular SPA
 - then, both,    
-    - to call the API (Azure function) using Interceptor or   
-    - to use acquireTokenSilent to get a token to call the API (Azure Function)   
+    - to authenticate for the API (Azure function) using Interceptor or   
+    - to use acquireTokenSilent to get a token to authenticate for the API (Azure Function)   
 
 ## Development server
 
