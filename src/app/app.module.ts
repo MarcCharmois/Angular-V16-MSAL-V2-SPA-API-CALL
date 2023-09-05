@@ -20,8 +20,7 @@ const isIE =
   window.navigator.userAgent.indexOf("Trident/") > -1;
 
  /* 
-  //this is for an older version of MSAL:
-
+  //this is for  version 1 of MSAL:
   export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
     const protectedResourceMap = new Map<string, Array<string>>();
 
@@ -39,11 +38,10 @@ const isIE =
     provide: MSAL_INTERCEPTOR_CONFIG,
     useFactory: MSALInterceptorConfigFactory
   }
-
+  That is no longer working:
+  MsalAngularConfiguration has been deprecated and no longer works.
+  source: https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-angular/docs/msal-interceptor.md
   */
- 
-
-
 
 @NgModule({
   declarations: [AppComponent, HomeComponent, ProfileComponent],
@@ -56,6 +54,7 @@ const isIE =
     MatListModule,
     HttpClientModule,
     MsalModule.forRoot(
+      // MSAL Configuration V2. Mandatory! V1 outside NgModule no longer works
       new PublicClientApplication({
         auth: {
           clientId: "fa2ef718-a66e-4566-a5f5-2a939264ea41", // Application (client) ID from the app registration
@@ -68,14 +67,14 @@ const isIE =
           storeAuthStateInCookie: isIE,
         },
       }),
-      //MSAL Guard
+      //MSAL Guard V2. 
       {
         interactionType: InteractionType.Redirect,
         authRequest: {
           scopes: ["api://108dfca0-fe22-4db7-8d0e-84e2aad49dbd/user_impersonation"],
         },
       },
-      //interceptor Configuration
+      //interceptor Configuration V2. V1 outside NgModule still works but you must add declaration in providers
       {
         interactionType: InteractionType.Redirect,
         protectedResourceMap: new Map([
