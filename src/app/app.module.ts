@@ -38,7 +38,7 @@ const isIE =
     useFactory: MSALInterceptorConfigFactory
   }
   //But it seems (not very sure yet) that if you use this old solution the Inerceptor won't work and you
-  //must generates a token to call the API using acquireTokenSlient --> to check on my side
+  //must generate a token to call the API using acquireTokenSlient (--> to check on my side to be really sure)
   */
 
 
