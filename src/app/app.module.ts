@@ -19,12 +19,13 @@ const isIE =
   window.navigator.userAgent.indexOf("MSIE ") > -1 ||
   window.navigator.userAgent.indexOf("Trident/") > -1;
 
-  /*
+ /* 
   //this is for an older version of MSAL:
 
   export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
     const protectedResourceMap = new Map<string, Array<string>>();
-    protectedResourceMap.set("api://108dfca0-fe22-4db7-8d0e-84e2aad49dbd/", ["user_impersonation"]);
+
+    protectedResourceMap.set("https://socratfunction3.azurewebsites.net", ["api://108dfca0-fe22-4db7-8d0e-84e2aad49dbd/user_impersonation"]);
   
     return {
       interactionType: InteractionType.Redirect,
@@ -32,14 +33,15 @@ const isIE =
     };
   }
 
-  //This is still working if you add the following code to the providers of the @ngmodule
-  , {
+  //This is still working with working Interceptor, if you add the following code to the providers of the @ngmodule
+
+   , {
     provide: MSAL_INTERCEPTOR_CONFIG,
     useFactory: MSALInterceptorConfigFactory
   }
-  //But it seems (not very sure yet) that if you use this old solution the Inerceptor won't work and you
-  //must generate a token to call the API using acquireTokenSlient (--> to check on my side to be really sure)
+
   */
+ 
 
 
 
@@ -66,12 +68,14 @@ const isIE =
           storeAuthStateInCookie: isIE,
         },
       }),
+      //MSAL Guard
       {
         interactionType: InteractionType.Redirect,
         authRequest: {
           scopes: ["api://108dfca0-fe22-4db7-8d0e-84e2aad49dbd/user_impersonation"],
         },
       },
+      //interceptor Configuration
       {
         interactionType: InteractionType.Redirect,
         protectedResourceMap: new Map([
@@ -81,7 +85,7 @@ const isIE =
                 scopes: ["api://108dfca0-fe22-4db7-8d0e-84e2aad49dbd/user_impersonation"],
             }
         ]]]),
-      },
+      }
     ),
   ],
   providers: [       
@@ -89,7 +93,7 @@ const isIE =
     provide: HTTP_INTERCEPTORS,
     useClass: MsalInterceptor,
     multi: true
-  }],
+  } ],
   bootstrap: [AppComponent, MsalRedirectComponent],
 },
 
