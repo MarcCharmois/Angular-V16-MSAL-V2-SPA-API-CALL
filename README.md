@@ -1,4 +1,4 @@
-# MsalAngularTutorial2
+# MsalAngular V3.0.2 SPA + API call acquireTokenSilent
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.1.
 
