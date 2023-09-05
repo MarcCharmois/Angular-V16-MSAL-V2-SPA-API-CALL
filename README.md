@@ -1,6 +1,9 @@
 # MsalAngular V3.0.2 SPA + API call acquireTokenSilent
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.1.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.1.   
+Using MSAL@azure/msal-angular V 3.0.2 to:    
+- authenticate users on Azure AD   
+- then, uses acquireTokenSilent to get a token to call an API (Azure Function)   
 
 ## Development server
 
