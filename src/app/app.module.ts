@@ -19,10 +19,10 @@ const isIE =
   window.navigator.userAgent.indexOf("MSIE ") > -1 ||
   window.navigator.userAgent.indexOf("Trident/") > -1;
 
+  /*
+  //this is for an older version of MSAL
   export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
     const protectedResourceMap = new Map<string, Array<string>>();
-    
-    //protectedResourceMap.set('https://graph.microsoft.com/v1.0/me', ['user.read']);
     protectedResourceMap.set("api://108dfca0-fe22-4db7-8d0e-84e2aad49dbd/", ["user_impersonation"]);
   
     return {
@@ -30,8 +30,14 @@ const isIE =
       protectedResourceMap
     };
   }
+  This is still working if you add the following code to the providers of the @ngmodule
+  , {
+    provide: MSAL_INTERCEPTOR_CONFIG,
+    useFactory: MSALInterceptorConfigFactory
+  }
+  */
 
-MSALInterceptorConfigFactory()
+
 
 @NgModule({
   declarations: [AppComponent, HomeComponent, ProfileComponent],
@@ -66,13 +72,12 @@ MSALInterceptorConfigFactory()
         interactionType: InteractionType.Redirect,
         protectedResourceMap: new Map([
           ["https://socratfunction3.azurewebsites.net", [
-            "all.scope",
-            {
+                        {
                 httpMethod: "GET",
-                scopes: ["api://108dfca0-fe22-4db7-8d0e-84e2aad49dbd/user_impersonation"]
+                scopes: ["api://108dfca0-fe22-4db7-8d0e-84e2aad49dbd/user_impersonation"],
             }
         ]]]),
-      }
+      },
     ),
   ],
   providers: [       
@@ -80,12 +85,8 @@ MSALInterceptorConfigFactory()
     provide: HTTP_INTERCEPTORS,
     useClass: MsalInterceptor,
     multi: true
-  }, {
-    provide: MSAL_INTERCEPTOR_CONFIG,
-    useFactory: MSALInterceptorConfigFactory
   }],
   bootstrap: [AppComponent, MsalRedirectComponent],
-
 },
 
 )
