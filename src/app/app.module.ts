@@ -20,7 +20,8 @@ const isIE =
   window.navigator.userAgent.indexOf("Trident/") > -1;
 
   /*
-  //this is for an older version of MSAL
+  //this is for an older version of MSAL:
+
   export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
     const protectedResourceMap = new Map<string, Array<string>>();
     protectedResourceMap.set("api://108dfca0-fe22-4db7-8d0e-84e2aad49dbd/", ["user_impersonation"]);
@@ -30,11 +31,14 @@ const isIE =
       protectedResourceMap
     };
   }
-  This is still working if you add the following code to the providers of the @ngmodule
+
+  //This is still working if you add the following code to the providers of the @ngmodule
   , {
     provide: MSAL_INTERCEPTOR_CONFIG,
     useFactory: MSALInterceptorConfigFactory
   }
+  //But it seems (not very sure yet) that if you use this old solution the Inerceptor won't work and you
+  //must generates a token to call the API using acquireTokenSlient --> to check on my side
   */
 
 
