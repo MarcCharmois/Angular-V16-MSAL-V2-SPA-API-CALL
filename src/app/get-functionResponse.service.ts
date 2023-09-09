@@ -40,7 +40,7 @@ export class GetFunctionResponseService {
 
   //with http Interceptor of MSAL Angular the token is genrated automatically and attached to 
   //the http requast so no need to generate it
-  //uncomment the lines if you want use the token and see it anyway
+  //uncomment the lines if you want to use the token and see it anyway
   async getFunctionResponse() {
 
     let url = "https://helloworldfunction1123.azurewebsites.net/api/powershell-azure-function-helloworldHttpTrigger?";
