@@ -24,7 +24,7 @@ const isIE =
  export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
    const protectedResourceMap = new Map<string, Array<string>>();
 
-   protectedResourceMap.set("https://socratfunction3.azurewebsites.net", ["api://108dfca0-fe22-4db7-8d0e-84e2aad49dbd/user_impersonation"]);
+   protectedResourceMap.set("https://helloworldfunction1123.azurewebsites.net/", ["api://a30c6d65-3d0b-415e-9dc7-4587fae74e2e/user_impersonation"]);
  
    return {
      interactionType: InteractionType.Redirect,
