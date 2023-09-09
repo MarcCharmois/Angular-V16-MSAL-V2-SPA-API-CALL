@@ -67,13 +67,31 @@ const isIE =
           storeAuthStateInCookie: isIE,
         },
       }),
-      //MSAL Guard V2. 
-      null,
-      null,
+      {
+        interactionType: InteractionType.Redirect,
+        authRequest: {
+          scopes: ["api://a30c6d65-3d0b-415e-9dc7-4587fae74e2e/user_impersonation"],
+        },
+      },
+      //interceptor Configuration V2. V1 outside NgModule still works but you must add declaration in providers
+      {
+        interactionType: InteractionType.Redirect,
+        protectedResourceMap: new Map([
+          ["https://helloworldfunction1123.azurewebsites.net/", [
+                        {
+                httpMethod: "GET",
+                scopes: ["api://a30c6d65-3d0b-415e-9dc7-4587fae74e2e/user_impersonation"],
+            }
+        ]]]),
+      }
     ),
   ],
   providers:
-    [],
+    [   {
+      provide: HTTP_INTERCEPTORS,
+      useClass: MsalInterceptor,
+      multi: true
+    } ],
   bootstrap: [AppComponent, MsalRedirectComponent],
 })
 export class AppModule { }

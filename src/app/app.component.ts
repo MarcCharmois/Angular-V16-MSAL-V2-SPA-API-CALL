@@ -72,7 +72,7 @@ export class AppComponent implements OnInit {
       .subscribe(res => {
         console.log("acquireTokenSilent");
         console.log(res.accessToken);
-        let url = "https://socratfunction3.azurewebsites.net/api/powershell-azure-function-helloworldHttpTrigger";
+        let url = "https://helloworldfunction1123.azurewebsites.net/api/powershell-azure-function-helloworldHttpTrigger?";
         let bearer2 = res.accessToken;
         let headers = new HttpHeaders()
           .set('Content-Type', 'text/html')
@@ -95,14 +95,14 @@ export class AppComponent implements OnInit {
 */
   setLoginDisplay() {
     this.loginDisplay = this.authService.instance.getAllAccounts().length > 0;
-    let url = "https://socratfunction3.azurewebsites.net/api/powershell-azure-function-helloworldHttpTrigger";
+    let url = "https://helloworldfunction1123.azurewebsites.net/api/powershell-azure-function-helloworldHttpTrigger?";
     
     //@azure/msal-angular interceptor automatically generates the token to call the api
-    /*
+    
     this.http.get(url, { responseType: 'text' }).subscribe(data => {
       console.log("trying interceptor");
       console.log(data)
-    })*/
+    })
     //this.callFunction();
   }
 }

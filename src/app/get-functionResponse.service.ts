@@ -16,8 +16,10 @@ export class GetFunctionResponseService {
   public signedUserAccount: any;
   private accessToken: any;
 
-  private url: string = "https://socratfunction3.azurewebsites.net/api/powershell-azure-function-helloworldHttpTrigger";
+  private url: string = "https://helloworldfunction1123.azurewebsites.net/api/powershell-azure-function-helloworldHttpTrigger?";
 
+
+  //use this if you want to get the token and decrypt it with jwt.io
   getFunctionToken() {
     //No need to add account if you stay signed in within your browser but you must 
     //add the account if you are in Incognito/private window/tab
@@ -36,13 +38,16 @@ export class GetFunctionResponseService {
       })
   }
 
+  //with http Interceptor of MSAL Angular the token is genrated automatically and attached to 
+  //the http requast so no need to generate it
+  //uncomment the lines if you want use the token and see it anyway
   async getFunctionResponse() {
 
-    let url = "https://socratfunction3.azurewebsites.net/api/powershell-azure-function-helloworldHttpTrigger";
-    let bearer2 = this.accessToken;
+    let url = "https://helloworldfunction1123.azurewebsites.net/api/powershell-azure-function-helloworldHttpTrigger?";
+    //let bearer2 = this.accessToken;
     let headers = new HttpHeaders()
       .set('Content-Type', 'text/html')
-      .set('Authorization', 'Bearer ' + bearer2)
+      //.set('Authorization', 'Bearer ' + bearer2)
 
     console.log("headers:")
     console.log(headers)
