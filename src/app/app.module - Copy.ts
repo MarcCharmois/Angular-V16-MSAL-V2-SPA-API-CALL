@@ -12,36 +12,36 @@ import { HomeComponent } from "./home/home.component";
 import { ProfileComponent } from "./profile/profile.component";
 
 import { MsalModule, MsalInterceptor, MsalGuardConfiguration, MsalInterceptorConfiguration, MsalBroadcastService, MsalGuard, MsalService, MSAL_GUARD_CONFIG, MSAL_INSTANCE, MSAL_INTERCEPTOR_CONFIG, MsalRedirectComponent } from "@azure/msal-angular";
-import { PublicClientApplication, InteractionType, BrowserCacheLocation } from "@azure/msal-browser";
+import { PublicClientApplication, InteractionType,BrowserCacheLocation } from "@azure/msal-browser";
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 const isIE =
   window.navigator.userAgent.indexOf("MSIE ") > -1 ||
   window.navigator.userAgent.indexOf("Trident/") > -1;
 
-/* 
- //this is for  version 1 of MSAL:
- export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
-   const protectedResourceMap = new Map<string, Array<string>>();
+ /* 
+  //this is for  version 1 of MSAL:
+  export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
+    const protectedResourceMap = new Map<string, Array<string>>();
 
-   protectedResourceMap.set("https://socratfunction3.azurewebsites.net", ["api://108dfca0-fe22-4db7-8d0e-84e2aad49dbd/user_impersonation"]);
- 
-   return {
-     interactionType: InteractionType.Redirect,
-     protectedResourceMap
-   };
- }
+    protectedResourceMap.set("https://socratfunction3.azurewebsites.net", ["api://108dfca0-fe22-4db7-8d0e-84e2aad49dbd/user_impersonation"]);
+  
+    return {
+      interactionType: InteractionType.Redirect,
+      protectedResourceMap
+    };
+  }
 
- //This is still working with working Interceptor, if you add the following code to the providers of the @ngmodule
+  //This is still working with working Interceptor, if you add the following code to the providers of the @ngmodule
 
-  , {
-   provide: MSAL_INTERCEPTOR_CONFIG,
-   useFactory: MSALInterceptorConfigFactory
- }
- That is no longer working:
- MsalAngularConfiguration has been deprecated and no longer works.
- source: https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-angular/docs/msal-interceptor.md
- */
+   , {
+    provide: MSAL_INTERCEPTOR_CONFIG,
+    useFactory: MSALInterceptorConfigFactory
+  }
+  That is no longer working:
+  MsalAngularConfiguration has been deprecated and no longer works.
+  source: https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-angular/docs/msal-interceptor.md
+  */
 
 @NgModule({
   declarations: [AppComponent, HomeComponent, ProfileComponent],
@@ -68,12 +68,33 @@ const isIE =
         },
       }),
       //MSAL Guard V2. 
-      null,
-      null,
+      {
+        interactionType: InteractionType.Redirect,
+        authRequest: {
+          scopes: ["api://108dfca0-fe22-4db7-8d0e-84e2aad49dbd/user_impersonation"],
+        },
+      },
+      //interceptor Configuration V2. V1 outside NgModule still works but you must add declaration in providers
+      {
+        interactionType: InteractionType.Redirect,
+        protectedResourceMap: new Map([
+          ["https://socratfunction3.azurewebsites.net", [
+                        {
+                httpMethod: "GET",
+                scopes: ["api://108dfca0-fe22-4db7-8d0e-84e2aad49dbd/user_impersonation"],
+            }
+        ]]]),
+      }
     ),
   ],
-  providers:
-    [],
+  providers: [       
+    /*{
+    provide: HTTP_INTERCEPTORS,
+    useClass: MsalInterceptor,
+    multi: true
+  } */],
   bootstrap: [AppComponent, MsalRedirectComponent],
-})
-export class AppModule { }
+},
+
+)
+export class AppModule {}

@@ -36,7 +36,7 @@ export class AppComponent implements OnInit {
 
           console.log("homeAccountId: " + result.account.homeAccountId)
           this.setLoginDisplay();
-
+          /*
           this.myservice.getFunctionToken()
 
           this.tokenTable = localStorage
@@ -46,7 +46,7 @@ export class AppComponent implements OnInit {
               console.log("-----------------------")
               console.log(key + ' : \n' + localStorage.getItem(key));
             }
-          }
+          }*/
           /*
            for (var i = 0; i < BrowserCacheLocation.SessionStorage.length; i++) {
              console.log(i + "token")
@@ -98,10 +98,11 @@ export class AppComponent implements OnInit {
     let url = "https://socratfunction3.azurewebsites.net/api/powershell-azure-function-helloworldHttpTrigger";
     
     //@azure/msal-angular interceptor automatically generates the token to call the api
+    /*
     this.http.get(url, { responseType: 'text' }).subscribe(data => {
       console.log("trying interceptor");
       console.log(data)
-    })
+    })*/
     //this.callFunction();
   }
 }
