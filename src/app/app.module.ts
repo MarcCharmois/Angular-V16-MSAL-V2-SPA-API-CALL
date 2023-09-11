@@ -67,6 +67,7 @@ const isIE =
           storeAuthStateInCookie: isIE,
         },
       }),
+      //MSAL guard V2
       {
         interactionType: InteractionType.Redirect,
         authRequest: {
