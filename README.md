@@ -1,4 +1,4 @@
-# MSALV2 MSAL@azure/msal-angular-V3 SPA + API call 
+# Angular 16 MSALV2 MSAL@azure/msal-angular-V3 SPA + API call 
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.1.   
 Using MSAL@azure/msal-angular V 3.0.2 to:    
